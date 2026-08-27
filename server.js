@@ -4,28 +4,14 @@ const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DATA_DIR = path.join(__dirname, "data");
-const ORDERS_FILE = path.join(DATA_DIR, "orders.json");
-
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-}
+let ordersMemory = [];
 
 function readOrders() {
-  try {
-    const raw = fs.readFileSync(ORDERS_FILE, "utf8");
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
+  return ordersMemory;
 }
 
 function writeOrders(orders) {
-  fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2), "utf8");
-}
-
-if (!fs.existsSync(ORDERS_FILE)) {
-  writeOrders([]);
+  ordersMemory = orders;
 }
 
 app.use(express.json());
@@ -99,16 +85,22 @@ app.patch("/api/orders/:id", (req, res) => {
 
 app.use(express.static(__dirname));
 
-app.listen(PORT, () => {
-  console.log(`Book n Tea → http://localhost:${PORT}`);
-  console.log(`Kafe paneli → http://localhost:${PORT}/staff.html`);
-}).on("error", (err) => {
-  if (err.code === "EADDRINUSE") {
-    console.error(
-      `Port ${PORT} dolu. Önce şu komutu çalıştırın, sonra tekrar npm start:\n` +
-        `  npx --yes kill-port ${PORT}`
-    );
-    process.exit(1);
-  }
-  throw err;
-});
+// Vercel ortamında değilsek sunucuyu dinle
+if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Book n Tea → http://localhost:${PORT}`);
+    console.log(`Kafe paneli → http://localhost:${PORT}/staff.html`);
+  }).on("error", (err) => {
+    if (err.code === "EADDRINUSE") {
+      console.error(
+        `Port ${PORT} dolu. Önce şu komutu çalıştırın, sonra tekrar npm start:\n` +
+          `  npx --yes kill-port ${PORT}`
+      );
+      process.exit(1);
+    }
+    throw err;
+  });
+}
+
+// Vercel için uygulamayı dışa aktar
+module.exports = app;
