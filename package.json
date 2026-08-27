@@ -1,0 +1,13 @@
+{
+  "name": "book-n-tea",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Book n Tea QR menü ve sipariş sistemi",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
