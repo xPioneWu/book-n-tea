@@ -5,3 +5,7 @@ data/orders.json
 .vercel
 *.log
 .DS_Store
+.claude/
+
+.vercel
+.env*
