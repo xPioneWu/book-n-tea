@@ -630,7 +630,6 @@ function addToCart(idOrObj, name, price, qty = 1, options = "") {
 
   renderCartUI();
   renderProducts(); // Update card button states
-  showToast(`${name} siparişe eklendi!`, "✨");
 }
 
 function updateCartItemQty(cartKey, delta) {
@@ -743,9 +742,7 @@ submitOrderBtn.addEventListener("click", async () => {
     return;
   }
 
-  const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || "Nakit";
-  const rawNote = orderNoteInput.value.trim();
-  const note = rawNote ? `[Ödeme: ${paymentMethod}] ${rawNote}` : `[Ödeme: ${paymentMethod}]`;
+  const note = orderNoteInput.value.trim();
 
   const items = Array.from(state.cart.values()).map((item) => ({
     name: item.options ? `${item.name} (${item.options})` : item.name,
@@ -776,8 +773,9 @@ submitOrderBtn.addEventListener("click", async () => {
     const orderData = await res.json();
     state.activeOrder = orderData;
 
-    // Show Confirmation Receipt
+    // Show Confirmation Receipt & Toast Notification (5 seconds overlay)
     showReceiptModal(orderData);
+    showToast("Siparişiniz başarıyla alındı ve mutfağa iletildi!", "✨", 5000);
 
     // Clear Cart State
     state.cart.clear();
@@ -848,7 +846,6 @@ tableGridOptions.addEventListener("click", (e) => {
   updateTableDisplay();
   renderTableGridOptions();
   tableModal.hidden = true;
-  showToast(`Masa ${state.tableNumber} seçildi`, "📍");
 });
 
 saveCustomTableBtn.addEventListener("click", () => {
@@ -859,7 +856,6 @@ saveCustomTableBtn.addEventListener("click", () => {
     renderTableGridOptions();
     tableModal.hidden = true;
     customTableInput.value = "";
-    showToast(`Masa ${state.tableNumber} seçildi`, "📍");
   }
 });
 
@@ -884,8 +880,6 @@ waiterModal.querySelectorAll(".waiter-option-btn").forEach((btn) => {
     const reason = btn.dataset.reason;
     waiterModal.hidden = true;
 
-    showToast("Garson talebiniz ekibe iletildi! 🛎️", "🛎️");
-
     // Submit notification to orders API as service request
     try {
       await fetch("/api/orders", {
@@ -903,16 +897,8 @@ waiterModal.querySelectorAll(".waiter-option-btn").forEach((btn) => {
   });
 });
 
-wifiBtn.addEventListener("click", () => {
-  showToast("Wi-Fi: BookAndTeaGuest / Şifre: book&tea2026", "📶");
-});
-
-bookRecommendBtn.addEventListener("click", () => {
-  showToast("Günün Kitabı: 'Simyacı' — Paulo Coelho", "📖");
-});
-
 // 15. Helper Utilities & Toast
-function showToast(message, icon = "✨") {
+function showToast(message, icon = "✨", duration = 5000) {
   toastMsg.textContent = message;
   toastIcon.textContent = icon;
   toast.hidden = false;
@@ -920,7 +906,7 @@ function showToast(message, icon = "✨") {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => {
     toast.hidden = true;
-  }, 2200);
+  }, duration);
 }
 
 function escapeHtml(str) {
