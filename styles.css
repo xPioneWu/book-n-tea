@@ -1342,6 +1342,36 @@ body {
   border-color: var(--amber);
 }
 
+/* Info Card for Wi-Fi & Book Modals */
+.info-card {
+  background: rgba(10, 22, 16, 0.45);
+  border: 1px solid var(--line-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.15rem;
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.info-card__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 0.88rem;
+  color: var(--cream-muted);
+}
+
+.info-card__row strong {
+  color: var(--amber);
+  font-family: monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+.info-card__row:first-child {
+  border-bottom: 1px dashed var(--line-subtle);
+}
+
 /* Receipt Modal */
 .modal__dialog--receipt {
   max-width: 360px;

@@ -377,6 +377,57 @@
     </div>
   </div>
 
+  <!-- Wi-Fi Details Modal -->
+  <div class="modal" id="wifiModal" hidden>
+    <div class="modal__backdrop" id="wifiBackdrop"></div>
+    <div class="modal__dialog modal__dialog--sm">
+      <button type="button" class="modal__close" id="closeWifiModal">✕</button>
+      <div class="waiter-header">
+        <div class="waiter-header__icon">📶</div>
+        <h3 class="modal__title">Wi-Fi Bağlantısı</h3>
+        <p class="modal__subtitle">Misafir internet ağ bilgileri aşağıdadır:</p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card__row">
+          <span>Ağ Adı (SSID):</span>
+          <strong>BookAndTeaGuest</strong>
+        </div>
+        <div class="info-card__row">
+          <span>Şifre:</span>
+          <strong id="wifiPasswordText">book&tea2026</strong>
+        </div>
+      </div>
+
+      <div class="modal__actions" style="margin-top: 1rem;">
+        <button type="button" class="btn-primary" id="copyWifiBtn">Şifreyi Kopyala</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Book Recommendation Modal -->
+  <div class="modal" id="bookModal" hidden>
+    <div class="modal__backdrop" id="bookBackdrop"></div>
+    <div class="modal__dialog modal__dialog--sm">
+      <button type="button" class="modal__close" id="closeBookModal">✕</button>
+      <div class="waiter-header">
+        <div class="waiter-header__icon">📖</div>
+        <h3 class="modal__title">Günün Kitabı</h3>
+        <p class="modal__subtitle">Kütüphanemizden haftanın öne çıkan eseri:</p>
+      </div>
+
+      <div class="info-card">
+        <h4 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--cream); margin-bottom: 0.2rem;">Simyacı</h4>
+        <p style="font-size: 0.85rem; color: var(--amber); margin-bottom: 0.75rem;">Paulo Coelho</p>
+        <p style="font-size: 0.88rem; color: var(--cream-muted); font-style: italic; line-height: 1.4;">"Bir şeyi gerçekten istersen, bütün evren onu gerçekleştirmen için iş birliği yapar."</p>
+      </div>
+
+      <div class="modal__actions" style="margin-top: 1rem;">
+        <button type="button" class="btn-secondary" id="closeBookBtn">Kapat</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Order Receipt & Confirmation Modal -->
   <div class="modal" id="receiptModal" hidden>
     <div class="modal__backdrop"></div>
