@@ -299,8 +299,6 @@ const waiterModal = document.getElementById("waiterModal");
 const waiterBackdrop = document.getElementById("waiterBackdrop");
 const callWaiterBtn = document.getElementById("callWaiterBtn");
 const closeWaiterModal = document.getElementById("closeWaiterModal");
-const wifiBtn = document.getElementById("wifiBtn");
-const bookRecommendBtn = document.getElementById("bookRecommendBtn");
 
 const receiptModal = document.getElementById("receiptModal");
 const closeReceiptBtn = document.getElementById("closeReceiptBtn");
@@ -351,7 +349,7 @@ function renderProducts() {
   const filtered = MENU_DATA.filter((item) => {
     // Category match
     const catMatch = state.currentCategory === "all" || item.category === state.currentCategory;
-    
+
     // Tag match
     let tagMatch = true;
     if (state.currentTag === "bestseller") tagMatch = item.bestseller === true;
@@ -361,8 +359,8 @@ function renderProducts() {
     else if (state.currentTag === "cold") tagMatch = item.tags.includes("cold");
 
     // Text search query match
-    const textMatch = !query || 
-      item.name.toLowerCase().includes(query) || 
+    const textMatch = !query ||
+      item.name.toLowerCase().includes(query) ||
       item.desc.toLowerCase().includes(query) ||
       item.tagLabels.some((t) => t.toLowerCase().includes(query));
 
@@ -384,7 +382,7 @@ function renderProducts() {
   productGrid.innerHTML = filtered
     .map((item) => {
       const cartQty = getItemCartQty(item.id);
-      
+
       const tagsHtml = item.tagLabels
         .map((tag) => {
           let extraClass = "";
@@ -415,21 +413,20 @@ function renderProducts() {
             <div class="p-card__footer">
               ${item.customizable ? `<button type="button" class="p-card__opt-btn" data-act="customize" data-id="${item.id}">Süt & Seçenekler ⚙️</button>` : `<span></span>`}
               
-              ${
-                cartQty > 0
-                  ? `
+              ${cartQty > 0
+          ? `
                 <div class="card-counter">
                   <button type="button" data-act="dec-card" data-id="${item.id}" aria-label="Azalt">−</button>
                   <span>${cartQty}</span>
                   <button type="button" data-act="inc-card" data-id="${item.id}" aria-label="Artır">+</button>
                 </div>
               `
-                  : `
+          : `
                 <button type="button" class="add-btn" data-act="add-quick" data-id="${item.id}">
                   <span>+ Ekle</span>
                 </button>
               `
-              }
+        }
             </div>
           </div>
         </article>
@@ -458,10 +455,10 @@ resetSearchBtn?.addEventListener("click", () => {
   state.currentCategory = "all";
   state.currentTag = "all";
   searchClearBtn.hidden = true;
-  
+
   document.querySelectorAll(".cat-pill").forEach((b) => b.classList.toggle("is-active", b.dataset.cat === "all"));
   document.querySelectorAll(".tag-chip").forEach((b) => b.classList.toggle("is-active", b.dataset.tag === "all"));
-  
+
   renderProducts();
 });
 
@@ -539,7 +536,7 @@ function openCustomizationModal(product) {
 function updateCustomModalTotal() {
   if (!state.selectedProductForCustom) return;
   const base = state.selectedProductForCustom.price;
-  
+
   let extra = 0;
   const checkedMilk = document.querySelector('input[name="milkOpt"]:checked');
   if (checkedMilk && checkedMilk.dataset.extra) {
