@@ -1,425 +1,430 @@
 <!DOCTYPE html>
 <html lang="tr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="description" content="Book & Tea House — Minimalist & Lüks QR Kafe Menüsü. Özel çaylar, leziz kahveler ve kütüphane fırınından tatlılar." />
-    <title>Book & Tea House — Menü & Sipariş</title>
-    
-    <!-- Google Fonts: Cormorant Garamond (Headings) & Inter (Body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <!-- Initial Loading Screen -->
-    <div class="loader" id="loader" aria-live="polite">
-      <div class="loader__content">
-        <div class="loader__emblem">
-          <svg class="loader__svg" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="40" r="36" stroke="#C99A5B" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6" />
-            <path d="M26 48C26 36 34 26 40 26C46 26 54 36 54 48H26Z" fill="#F7F3EA" opacity="0.9" />
-            <path d="M22 48H58V50C58 54.4 54.4 58 50 58H30C25.6 58 22 54.4 22 50V48Z" fill="#C99A5B" />
-            <path d="M54 36C58 36 62 39 62 43C62 47 58 50 54 50" stroke="#C99A5B" stroke-width="2.5" stroke-linecap="round" />
-            <path d="M34 22C34 18 38 16 38 12" stroke="#DFD8C8" stroke-width="1.5" stroke-linecap="round" opacity="0.8" />
-            <path d="M42 22C42 18 46 16 46 12" stroke="#DFD8C8" stroke-width="1.5" stroke-linecap="round" opacity="0.8" />
-          </svg>
-        </div>
-        <h1 class="loader__title">Book & Tea House</h1>
-        <p class="loader__subtitle">A sanctuary for book lovers & tea connoisseurs</p>
-        <div class="loader__bar"><div class="loader__progress"></div></div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description"
+    content="Book & Tea House — Minimalist & Lüks QR Kafe Menüsü. Özel çaylar, leziz kahveler ve kütüphane fırınından tatlılar." />
+  <title>Book & Tea House — Menü & Sipariş</title>
+
+  <!-- Google Fonts: Cormorant Garamond (Headings) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Initial Loading Screen -->
+  <div class="loader" id="loader" aria-live="polite">
+    <div class="loader__content">
+      <div class="loader__emblem">
+        <svg class="loader__svg" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="40" r="36" stroke="#C99A5B" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6" />
+          <path d="M26 48C26 36 34 26 40 26C46 26 54 36 54 48H26Z" fill="#F7F3EA" opacity="0.9" />
+          <path d="M22 48H58V50C58 54.4 54.4 58 50 58H30C25.6 58 22 54.4 22 50V48Z" fill="#C99A5B" />
+          <path d="M54 36C58 36 62 39 62 43C62 47 58 50 54 50" stroke="#C99A5B" stroke-width="2.5"
+            stroke-linecap="round" />
+          <path d="M34 22C34 18 38 16 38 12" stroke="#DFD8C8" stroke-width="1.5" stroke-linecap="round" opacity="0.8" />
+          <path d="M42 22C42 18 46 16 46 12" stroke="#DFD8C8" stroke-width="1.5" stroke-linecap="round" opacity="0.8" />
+        </svg>
+      </div>
+      <h1 class="loader__title">Book & Tea House</h1>
+      <p class="loader__subtitle">A sanctuary for book lovers & tea connoisseurs</p>
+      <div class="loader__bar">
+        <div class="loader__progress"></div>
       </div>
     </div>
+  </div>
 
-    <!-- Main Mobile Container -->
-    <div class="app-shell" id="appShell">
-      
-      <!-- Top Quote Banner -->
-      <div class="quote-bar">
-        <span class="quote-bar__icon">📖</span>
-        <span class="quote-bar__text">"Bir fincan çay, iyi bir kitap ve sessiz bir köşe..."</span>
+  <!-- Main Mobile Container -->
+  <div class="app-shell" id="appShell">
+
+    <!-- Top Quote Banner -->
+    <div class="quote-bar">
+      <span class="quote-bar__icon">📖</span>
+      <span class="quote-bar__text">"Bir fincan çay, iyi bir kitap ve sessiz bir köşe..."</span>
+    </div>
+
+    <!-- Hero Header Section -->
+    <header class="hero">
+      <div class="hero__bg-glow"></div>
+
+      <!-- Table Pill & Switcher -->
+      <div class="table-badge" id="tableBadgeBtn" role="button" tabindex="0" title="Masa Numarasını Değiştir">
+        <span class="table-badge__pin">📍</span>
+        <span class="table-badge__label" id="tableDisplayLabel">Masa 04</span>
+        <span class="table-badge__edit">Değiştir ✎</span>
       </div>
 
-      <!-- Hero Header Section -->
-      <header class="hero">
-        <div class="hero__bg-glow"></div>
+      <!-- Brand Crest / Logo -->
+      <div class="hero__logo-wrapper">
+        <svg class="hero__logo-svg" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="46" stroke="#C99A5B" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.4" />
+          <circle cx="50" cy="50" r="41" stroke="#F7F3EA" stroke-width="0.75" opacity="0.25" />
+          <!-- Open Book -->
+          <path d="M28 62C34 58 43 57 50 61C57 57 66 58 72 62V38C66 34 57 33 50 37C43 33 34 34 28 38V62Z"
+            stroke="#F7F3EA" stroke-width="1.8" stroke-linejoin="round" />
+          <path d="M50 37V61" stroke="#C99A5B" stroke-width="1.5" />
+          <!-- Steaming Teacup -->
+          <path d="M38 48H62C62 55 56.6 60 50 60C43.4 60 38 55 38 48Z" fill="#204232" stroke="#C99A5B"
+            stroke-width="1.5" />
+          <!-- Steam -->
+          <path d="M44 32C44 28 47 27 47 23" stroke="#C99A5B" stroke-width="1.5" stroke-linecap="round" />
+          <path d="M53 32C53 28 56 27 56 23" stroke="#C99A5B" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </div>
 
-        <!-- Table Pill & Switcher -->
-        <div class="table-badge" id="tableBadgeBtn" role="button" tabindex="0" title="Masa Numarasını Değiştir">
-          <span class="table-badge__pin">📍</span>
-          <span class="table-badge__label" id="tableDisplayLabel">Masa 04</span>
-          <span class="table-badge__edit">Değiştir ✎</span>
+      <h1 class="hero__title">Book & Tea House</h1>
+      <p class="hero__slogan">A sanctuary for book lovers & tea connoisseurs</p>
+
+      <!-- Quick Action Bar -->
+      <div class="quick-actions">
+        <button class="quick-btn" id="callWaiterBtn" type="button">
+          <span class="quick-btn__icon">🛎️</span>
+          <span class="quick-btn__text">Garson Çağır</span>
+        </button>
+        <button class="quick-btn" id="wifiBtn" type="button">
+          <span class="quick-btn__icon">📶</span>
+          <span class="quick-btn__text">Wi-Fi</span>
+        </button>
+        <button class="quick-btn" id="bookRecommendBtn" type="button">
+          <span class="quick-btn__icon">📖</span>
+          <span class="quick-btn__text">Günün Kitabı</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+      <div class="search-box">
+        <svg class="search-box__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" class="search-box__input"
+          placeholder="Lezzet veya içerik arayın... (ör. Earl Grey, Latte, Cheesecake)" aria-label="Menüde Ara" />
+        <button type="button" class="search-box__clear" id="searchClearBtn" hidden
+          aria-label="Aramayı Temizle">✕</button>
+      </div>
+
+      <!-- Filter Tags -->
+      <div class="tag-chips" id="tagChips">
+        <button class="tag-chip is-active" data-tag="all">Tüm Lezzetler</button>
+        <button class="tag-chip" data-tag="bestseller">⭐ Bestseller</button>
+        <button class="tag-chip" data-tag="vegan">🌱 Vegan</button>
+        <button class="tag-chip" data-tag="glutenfree">🌾 Gluten-Free</button>
+        <button class="tag-chip" data-tag="hot">🔥 Sıcak</button>
+        <button class="tag-chip" data-tag="cold">❄️ Soğuk</button>
+      </div>
+    </section>
+
+    <!-- Sticky Category Bar -->
+    <nav class="sticky-nav" id="stickyNav" aria-label="Menü Kategorileri">
+      <div class="categories-scroll" id="categoriesScroll">
+        <button class="cat-pill is-active" data-cat="all" type="button">
+          <span class="cat-pill__icon">✨</span>
+          <span class="cat-pill__title">Tümü</span>
+        </button>
+        <button class="cat-pill" data-cat="tea" type="button">
+          <span class="cat-pill__icon">🍃</span>
+          <span class="cat-pill__title">Özel Çaylar</span>
+        </button>
+        <button class="cat-pill" data-cat="coffee" type="button">
+          <span class="cat-pill__icon">☕</span>
+          <span class="cat-pill__title">Kahve Sanatı</span>
+        </button>
+        <button class="cat-pill" data-cat="bakery" type="button">
+          <span class="cat-pill__icon">🥐</span>
+          <span class="cat-pill__title">Kütüphane Fırını</span>
+        </button>
+        <button class="cat-pill" data-cat="dessert" type="button">
+          <span class="cat-pill__icon">🍰</span>
+          <span class="cat-pill__title">Tatlılar</span>
+        </button>
+        <button class="cat-pill" data-cat="sandwich" type="button">
+          <span class="cat-pill__icon">🥪</span>
+          <span class="cat-pill__title">Sandviç & Tost</span>
+        </button>
+        <button class="cat-pill" data-cat="books" type="button">
+          <span class="cat-pill__icon">📚</span>
+          <span class="cat-pill__title">Kitap & Merch</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Product Menu Section -->
+    <main class="menu-container">
+      <!-- Results Counter / Status -->
+      <div class="menu-status" id="menuStatus">
+        <span id="resultsCount">Tüm lezzetler gösteriliyor</span>
+      </div>
+
+      <!-- Product Grid Dynamic Container -->
+      <div class="product-grid" id="productGrid">
+        <!-- Dynamically populated by script.js -->
+      </div>
+
+      <!-- Empty Search State -->
+      <div class="empty-search" id="emptySearch" hidden>
+        <div class="empty-search__icon">🔍</div>
+        <h3 class="empty-search__title">Aradığınız Lezzet Bulunamadı</h3>
+        <p class="empty-search__desc">Lütfen farklı bir arama terimi deneyin veya filtreleri temizleyin.</p>
+        <button type="button" class="btn-secondary" id="resetSearchBtn">Tüm Menüyü Göster</button>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="app-footer__crest">❧</div>
+      <p class="app-footer__brand">Book & Tea House</p>
+      <p class="app-footer__address">Kütüphane Çıkmazı No: 12, İstanbul • 0212 555 01 99</p>
+      <p class="app-footer__timing">Açılış: Her gün 08:30 – 23:00</p>
+      <div class="app-footer__links">
+        <a href="staff.html" target="_blank" rel="noopener">Kafe Personel Paneli</a> •
+        <a href="qr.html" target="_blank" rel="noopener">Masa QR Kodları</a>
+      </div>
+    </footer>
+
+  </div> <!-- End app-shell -->
+
+  <!-- Sticky Bottom "View Order" Bar -->
+  <div class="cart-bar" id="cartBar" hidden>
+    <div class="cart-bar__inner">
+      <div class="cart-bar__info">
+        <div class="cart-bar__count-badge" id="cartBarCount">0</div>
+        <div class="cart-bar__pricing">
+          <span class="cart-bar__label">Sipariş Toplamı</span>
+          <strong class="cart-bar__total" id="cartBarTotal">0 ₺</strong>
+        </div>
+      </div>
+      <button class="cart-bar__action" id="openCartBtn" type="button">
+        <span>Siparişi İncele</span>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Slide-up Cart Drawer Sheet -->
+  <div class="drawer" id="cartDrawer" hidden>
+    <div class="drawer__backdrop" id="cartBackdrop"></div>
+    <div class="drawer__panel" role="dialog" aria-labelledby="cartDrawerTitle">
+      <div class="drawer__handle"></div>
+
+      <div class="drawer__header">
+        <div>
+          <h2 class="drawer__title" id="cartDrawerTitle">Siparişiniz</h2>
+          <span class="drawer__table-pill" id="cartTableBadge">Masa 04</span>
+        </div>
+        <button type="button" class="drawer__close" id="closeCartBtn" aria-label="Kapat">✕</button>
+      </div>
+
+      <div class="drawer__body">
+        <ul class="cart-items" id="cartItemsList">
+          <!-- Dynamically populated -->
+        </ul>
+
+        <!-- Order Note -->
+        <div class="drawer__field">
+          <label for="orderNoteInput" class="drawer__field-label">
+            <span>Mutfak / Garson Notu</span>
+            <span class="drawer__field-opt">(isteğe bağlı)</span>
+          </label>
+          <textarea id="orderNoteInput" class="drawer__textarea" rows="2" maxlength="150"
+            placeholder="Örn: Yulaf sütlü olsun, az şekerli servis edilsin..."></textarea>
         </div>
 
-        <!-- Brand Crest / Logo -->
-        <div class="hero__logo-wrapper">
-          <svg class="hero__logo-svg" viewBox="0 0 100 100" fill="none">
-            <circle cx="50" cy="50" r="46" stroke="#C99A5B" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.4" />
-            <circle cx="50" cy="50" r="41" stroke="#F7F3EA" stroke-width="0.75" opacity="0.25" />
-            <!-- Open Book -->
-            <path d="M28 62C34 58 43 57 50 61C57 57 66 58 72 62V38C66 34 57 33 50 37C43 33 34 34 28 38V62Z" stroke="#F7F3EA" stroke-width="1.8" stroke-linejoin="round" />
-            <path d="M50 37V61" stroke="#C99A5B" stroke-width="1.5" />
-            <!-- Steaming Teacup -->
-            <path d="M38 48H62C62 55 56.6 60 50 60C43.4 60 38 55 38 48Z" fill="#204232" stroke="#C99A5B" stroke-width="1.5" />
-            <!-- Steam -->
-            <path d="M44 32C44 28 47 27 47 23" stroke="#C99A5B" stroke-width="1.5" stroke-linecap="round" />
-            <path d="M53 32C53 28 56 27 56 23" stroke="#C99A5B" stroke-width="1.5" stroke-linecap="round" />
-          </svg>
-        </div>
 
-        <h1 class="hero__title">Book & Tea House</h1>
-        <p class="hero__slogan">A sanctuary for book lovers & tea connoisseurs</p>
 
-        <!-- Quick Action Bar -->
-        <div class="quick-actions">
-          <button class="quick-btn" id="callWaiterBtn" type="button">
-            <span class="quick-btn__icon">🛎️</span>
-            <span class="quick-btn__text">Garson Çağır</span>
-          </button>
-          <button class="quick-btn" id="wifiBtn" type="button">
-            <span class="quick-btn__icon">📶</span>
-            <span class="quick-btn__text">Wi-Fi</span>
-          </button>
-          <button class="quick-btn" id="bookRecommendBtn" type="button">
-            <span class="quick-btn__icon">📖</span>
-            <span class="quick-btn__text">Günün Kitabı</span>
-          </button>
-        </div>
-      </header>
-
-      <!-- Search Section -->
-      <section class="search-section">
-        <div class="search-box">
-          <svg class="search-box__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input
-            type="text"
-            id="searchInput"
-            class="search-box__input"
-            placeholder="Lezzet veya içerik arayın... (ör. Earl Grey, Latte, Cheesecake)"
-            aria-label="Menüde Ara"
-          />
-          <button type="button" class="search-box__clear" id="searchClearBtn" hidden aria-label="Aramayı Temizle">✕</button>
-        </div>
-
-        <!-- Filter Tags -->
-        <div class="tag-chips" id="tagChips">
-          <button class="tag-chip is-active" data-tag="all">Tüm Lezzetler</button>
-          <button class="tag-chip" data-tag="bestseller">⭐ Bestseller</button>
-          <button class="tag-chip" data-tag="vegan">🌱 Vegan</button>
-          <button class="tag-chip" data-tag="glutenfree">🌾 Gluten-Free</button>
-          <button class="tag-chip" data-tag="hot">🔥 Sıcak</button>
-          <button class="tag-chip" data-tag="cold">❄️ Soğuk</button>
-        </div>
-      </section>
-
-      <!-- Sticky Category Bar -->
-      <nav class="sticky-nav" id="stickyNav" aria-label="Menü Kategorileri">
-        <div class="categories-scroll" id="categoriesScroll">
-          <button class="cat-pill is-active" data-cat="all" type="button">
-            <span class="cat-pill__icon">✨</span>
-            <span class="cat-pill__title">Tümü</span>
-          </button>
-          <button class="cat-pill" data-cat="tea" type="button">
-            <span class="cat-pill__icon">🍃</span>
-            <span class="cat-pill__title">Özel Çaylar</span>
-          </button>
-          <button class="cat-pill" data-cat="coffee" type="button">
-            <span class="cat-pill__icon">☕</span>
-            <span class="cat-pill__title">Kahve Sanatı</span>
-          </button>
-          <button class="cat-pill" data-cat="bakery" type="button">
-            <span class="cat-pill__icon">🥐</span>
-            <span class="cat-pill__title">Kütüphane Fırını</span>
-          </button>
-          <button class="cat-pill" data-cat="dessert" type="button">
-            <span class="cat-pill__icon">🍰</span>
-            <span class="cat-pill__title">Tatlılar</span>
-          </button>
-          <button class="cat-pill" data-cat="sandwich" type="button">
-            <span class="cat-pill__icon">🥪</span>
-            <span class="cat-pill__title">Sandviç & Tost</span>
-          </button>
-          <button class="cat-pill" data-cat="books" type="button">
-            <span class="cat-pill__icon">📚</span>
-            <span class="cat-pill__title">Kitap & Merch</span>
-          </button>
-        </div>
-      </nav>
-
-      <!-- Main Product Menu Section -->
-      <main class="menu-container">
-        <!-- Results Counter / Status -->
-        <div class="menu-status" id="menuStatus">
-          <span id="resultsCount">Tüm lezzetler gösteriliyor</span>
-        </div>
-
-        <!-- Product Grid Dynamic Container -->
-        <div class="product-grid" id="productGrid">
-          <!-- Dynamically populated by script.js -->
-        </div>
-
-        <!-- Empty Search State -->
-        <div class="empty-search" id="emptySearch" hidden>
-          <div class="empty-search__icon">🔍</div>
-          <h3 class="empty-search__title">Aradığınız Lezzet Bulunamadı</h3>
-          <p class="empty-search__desc">Lütfen farklı bir arama terimi deneyin veya filtreleri temizleyin.</p>
-          <button type="button" class="btn-secondary" id="resetSearchBtn">Tüm Menüyü Göster</button>
-        </div>
-      </main>
-
-      <!-- Footer -->
-      <footer class="app-footer">
-        <div class="app-footer__crest">❧</div>
-        <p class="app-footer__brand">Book & Tea House</p>
-        <p class="app-footer__address">Kütüphane Çıkmazı No: 12, İstanbul • 0212 555 01 99</p>
-        <p class="app-footer__timing">Açılış: Her gün 08:30 – 23:00</p>
-        <div class="app-footer__links">
-          <a href="staff.html" target="_blank" rel="noopener">Kafe Personel Paneli</a> • 
-          <a href="qr.html" target="_blank" rel="noopener">Masa QR Kodları</a>
-        </div>
-      </footer>
-
-    </div> <!-- End app-shell -->
-
-    <!-- Sticky Bottom "View Order" Bar -->
-    <div class="cart-bar" id="cartBar" hidden>
-      <div class="cart-bar__inner">
-        <div class="cart-bar__info">
-          <div class="cart-bar__count-badge" id="cartBarCount">0</div>
-          <div class="cart-bar__pricing">
-            <span class="cart-bar__label">Sipariş Toplamı</span>
-            <strong class="cart-bar__total" id="cartBarTotal">0 ₺</strong>
+        <!-- Summary Breakdown -->
+        <div class="drawer__summary">
+          <div class="summary-row">
+            <span>Ara Toplam</span>
+            <span id="cartSubtotal">0 ₺</span>
+          </div>
+          <div class="summary-row summary-row--free">
+            <span>Masa Servis Ücreti</span>
+            <span>Ücretsiz</span>
+          </div>
+          <div class="summary-row summary-row--total">
+            <span>Genel Toplam</span>
+            <strong id="cartGrandTotal">0 ₺</strong>
           </div>
         </div>
-        <button class="cart-bar__action" id="openCartBtn" type="button">
-          <span>Siparişi İncele</span>
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
+      </div>
+
+      <div class="drawer__footer">
+        <button class="btn-primary" id="submitOrderBtn" type="button">
+          <span class="btn-primary__text">Siparişi Masaya Gönder</span>
+          <span class="btn-primary__icon">➔</span>
+        </button>
+        <p class="drawer__error" id="cartErrorMsg" role="alert" hidden></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Customization Modal -->
+  <div class="modal" id="customModal" hidden>
+    <div class="modal__backdrop" id="customBackdrop"></div>
+    <div class="modal__dialog" role="dialog">
+      <button type="button" class="modal__close" id="closeCustomModal">✕</button>
+
+      <div class="custom-header">
+        <img id="customModalImg" src="" alt="" class="custom-header__img" />
+        <div class="custom-header__info">
+          <h3 class="custom-header__title" id="customModalTitle">Ürün Adı</h3>
+          <p class="custom-header__desc" id="customModalDesc">Açıklama</p>
+          <div class="custom-header__price" id="customModalPrice">0 ₺</div>
+        </div>
+      </div>
+
+      <div class="custom-options" id="customOptionsBody">
+        <!-- Milk Choice -->
+        <div class="custom-group" id="milkOptionGroup">
+          <h4 class="custom-group__title">Süt Tercihi</h4>
+          <div class="custom-group__options">
+            <label class="opt-btn"><input type="radio" name="milkOpt" value="Tam Yağlı Süt" checked /> <span>Tam Yağlı
+                Süt</span></label>
+            <label class="opt-btn"><input type="radio" name="milkOpt" value="Yulaf Sütü (+15 ₺)" data-extra="15" />
+              <span>Yulaf Sütü (+15 ₺)</span></label>
+            <label class="opt-btn"><input type="radio" name="milkOpt" value="Badem Sütü (+15 ₺)" data-extra="15" />
+              <span>Badem Sütü (+15 ₺)</span></label>
+            <label class="opt-btn"><input type="radio" name="milkOpt" value="Laktozsuz Süt" /> <span>Laktozsuz
+                Süt</span></label>
+          </div>
+        </div>
+
+        <!-- Sweetness Level -->
+        <div class="custom-group" id="sugarOptionGroup">
+          <h4 class="custom-group__title">Şeker Derecesi</h4>
+          <div class="custom-group__options">
+            <label class="opt-btn"><input type="radio" name="sugarOpt" value="Şekersiz" checked />
+              <span>Şekersiz</span></label>
+            <label class="opt-btn"><input type="radio" name="sugarOpt" value="Az Şekerli" /> <span>Az
+                Şekerli</span></label>
+            <label class="opt-btn"><input type="radio" name="sugarOpt" value="Orta Şekerli" /> <span>Orta
+                Şekerli</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="custom-footer">
+        <div class="quantity-stepper">
+          <button type="button" class="stepper-btn" id="customDecBtn">−</button>
+          <span class="stepper-val" id="customQtyVal">1</span>
+          <button type="button" class="stepper-btn" id="customIncBtn">+</button>
+        </div>
+        <button type="button" class="btn-primary" id="confirmCustomAddBtn">
+          <span id="customAddBtnLabel">Siparişe Ekle • 0 ₺</span>
         </button>
       </div>
     </div>
+  </div>
 
-    <!-- Slide-up Cart Drawer Sheet -->
-    <div class="drawer" id="cartDrawer" hidden>
-      <div class="drawer__backdrop" id="cartBackdrop"></div>
-      <div class="drawer__panel" role="dialog" aria-labelledby="cartDrawerTitle">
-        <div class="drawer__handle"></div>
-        
-        <div class="drawer__header">
-          <div>
-            <h2 class="drawer__title" id="cartDrawerTitle">Siparişiniz</h2>
-            <span class="drawer__table-pill" id="cartTableBadge">Masa 04</span>
-          </div>
-          <button type="button" class="drawer__close" id="closeCartBtn" aria-label="Kapat">✕</button>
-        </div>
+  <!-- Table Number Selector Modal -->
+  <div class="modal" id="tableModal" hidden>
+    <div class="modal__backdrop" id="tableBackdrop"></div>
+    <div class="modal__dialog modal__dialog--sm">
+      <h3 class="modal__title">Masa Seçimi</h3>
+      <p class="modal__subtitle">Bulunduğunuz masayı seçin veya numarasını girin:</p>
 
-        <div class="drawer__body">
-          <ul class="cart-items" id="cartItemsList">
-            <!-- Dynamically populated -->
-          </ul>
+      <div class="table-grid" id="tableGridOptions">
+        <!-- 1 to 12 buttons -->
+      </div>
 
-          <!-- Order Note -->
-          <div class="drawer__field">
-            <label for="orderNoteInput" class="drawer__field-label">
-              <span>Mutfak / Garson Notu</span>
-              <span class="drawer__field-opt">(isteğe bağlı)</span>
-            </label>
-            <textarea
-              id="orderNoteInput"
-              class="drawer__textarea"
-              rows="2"
-              maxlength="150"
-              placeholder="Örn: Yulaf sütlü olsun, az şekerli servis edilsin..."
-            ></textarea>
-          </div>
-
-
-
-          <!-- Summary Breakdown -->
-          <div class="drawer__summary">
-            <div class="summary-row">
-              <span>Ara Toplam</span>
-              <span id="cartSubtotal">0 ₺</span>
-            </div>
-            <div class="summary-row summary-row--free">
-              <span>Masa Servis Ücreti</span>
-              <span>Ücretsiz</span>
-            </div>
-            <div class="summary-row summary-row--total">
-              <span>Genel Toplam</span>
-              <strong id="cartGrandTotal">0 ₺</strong>
-            </div>
-          </div>
-        </div>
-
-        <div class="drawer__footer">
-          <button class="btn-primary" id="submitOrderBtn" type="button">
-            <span class="btn-primary__text">Siparişi Masaya Gönder</span>
-            <span class="btn-primary__icon">➔</span>
-          </button>
-          <p class="drawer__error" id="cartErrorMsg" role="alert" hidden></p>
-        </div>
+      <div class="table-custom-input">
+        <input type="number" id="customTableInput" min="1" max="99" placeholder="Örn. 14" />
+        <button type="button" class="btn-secondary" id="saveCustomTableBtn">Tamam</button>
       </div>
     </div>
+  </div>
 
-    <!-- Product Customization Modal -->
-    <div class="modal" id="customModal" hidden>
-      <div class="modal__backdrop" id="customBackdrop"></div>
-      <div class="modal__dialog" role="dialog">
-        <button type="button" class="modal__close" id="closeCustomModal">✕</button>
-        
-        <div class="custom-header">
-          <img id="customModalImg" src="" alt="" class="custom-header__img" />
-          <div class="custom-header__info">
-            <h3 class="custom-header__title" id="customModalTitle">Ürün Adı</h3>
-            <p class="custom-header__desc" id="customModalDesc">Açıklama</p>
-            <div class="custom-header__price" id="customModalPrice">0 ₺</div>
-          </div>
-        </div>
+  <!-- Waiter / Service Call Modal -->
+  <div class="modal" id="waiterModal" hidden>
+    <div class="modal__backdrop" id="waiterBackdrop"></div>
+    <div class="modal__dialog modal__dialog--sm">
+      <button type="button" class="modal__close" id="closeWaiterModal">✕</button>
+      <div class="waiter-header">
+        <div class="waiter-header__icon">🛎️</div>
+        <h3 class="modal__title">Garson Çağır</h3>
+        <p class="modal__subtitle">Ekibimize bildirmek istediğiniz talebi seçin:</p>
+      </div>
 
-        <div class="custom-options" id="customOptionsBody">
-          <!-- Milk Choice -->
-          <div class="custom-group" id="milkOptionGroup">
-            <h4 class="custom-group__title">Süt Tercihi</h4>
-            <div class="custom-group__options">
-              <label class="opt-btn"><input type="radio" name="milkOpt" value="Tam Yağlı Süt" checked /> <span>Tam Yağlı Süt</span></label>
-              <label class="opt-btn"><input type="radio" name="milkOpt" value="Yulaf Sütü (+15 ₺)" data-extra="15" /> <span>Yulaf Sütü (+15 ₺)</span></label>
-              <label class="opt-btn"><input type="radio" name="milkOpt" value="Badem Sütü (+15 ₺)" data-extra="15" /> <span>Badem Sütü (+15 ₺)</span></label>
-              <label class="opt-btn"><input type="radio" name="milkOpt" value="Laktozsuz Süt" /> <span>Laktozsuz Süt</span></label>
-            </div>
-          </div>
-
-          <!-- Sweetness Level -->
-          <div class="custom-group" id="sugarOptionGroup">
-            <h4 class="custom-group__title">Şeker Derecesi</h4>
-            <div class="custom-group__options">
-              <label class="opt-btn"><input type="radio" name="sugarOpt" value="Şekersiz" checked /> <span>Şekersiz</span></label>
-              <label class="opt-btn"><input type="radio" name="sugarOpt" value="Az Şekerli" /> <span>Az Şekerli</span></label>
-              <label class="opt-btn"><input type="radio" name="sugarOpt" value="Orta Şekerli" /> <span>Orta Şekerli</span></label>
-            </div>
-          </div>
-        </div>
-
-        <div class="custom-footer">
-          <div class="quantity-stepper">
-            <button type="button" class="stepper-btn" id="customDecBtn">−</button>
-            <span class="stepper-val" id="customQtyVal">1</span>
-            <button type="button" class="stepper-btn" id="customIncBtn">+</button>
-          </div>
-          <button type="button" class="btn-primary" id="confirmCustomAddBtn">
-            <span id="customAddBtnLabel">Siparişe Ekle • 0 ₺</span>
-          </button>
-        </div>
+      <div class="waiter-actions">
+        <button type="button" class="waiter-option-btn" data-reason="Masaya Garson İstiyorum">
+          <span class="waiter-option-btn__icon">🙋‍♂️</span>
+          <span>Garson Çağır</span>
+        </button>
+        <button type="button" class="waiter-option-btn" data-reason="Su & Peçete İsteği">
+          <span class="waiter-option-btn__icon">💧</span>
+          <span>Su & Peçete İsteği</span>
+        </button>
+        <button type="button" class="waiter-option-btn" data-reason="Hesap / Adisyon İsteği">
+          <span class="waiter-option-btn__icon">🧾</span>
+          <span>Hesap / Adisyon Getir</span>
+        </button>
+        <button type="button" class="waiter-option-btn" data-reason="Masa Temizliği">
+          <span class="waiter-option-btn__icon">🧹</span>
+          <span>Masa Temizliği</span>
+        </button>
       </div>
     </div>
+  </div>
 
-    <!-- Table Number Selector Modal -->
-    <div class="modal" id="tableModal" hidden>
-      <div class="modal__backdrop" id="tableBackdrop"></div>
-      <div class="modal__dialog modal__dialog--sm">
-        <h3 class="modal__title">Masa Seçimi</h3>
-        <p class="modal__subtitle">Bulunduğunuz masayı seçin veya numarasını girin:</p>
+  <!-- Order Receipt & Confirmation Modal -->
+  <div class="modal" id="receiptModal" hidden>
+    <div class="modal__backdrop"></div>
+    <div class="modal__dialog modal__dialog--receipt">
+      <div class="receipt">
+        <div class="receipt__badge">✓</div>
+        <h3 class="receipt__title">Siparişiniz Alındı</h3>
+        <p class="receipt__subtitle">Mutfak ekibimiz siparişinizi hazırlamaya başladı.</p>
 
-        <div class="table-grid" id="tableGridOptions">
-          <!-- 1 to 12 buttons -->
+        <div class="receipt__meta">
+          <div class="receipt__row">
+            <span>Sipariş No:</span>
+            <strong id="receiptId">#ord_12345</strong>
+          </div>
+          <div class="receipt__row">
+            <span>Masa:</span>
+            <strong id="receiptTable">Masa 04</strong>
+          </div>
+          <div class="receipt__row">
+            <span>Tahmini Süre:</span>
+            <strong class="receipt__time">~8 - 12 Dakika</strong>
+          </div>
+          <div class="receipt__row">
+            <span>Durum:</span>
+            <span class="receipt__status-tag">Mutfakta Hazırlanıyor ⏳</span>
+          </div>
         </div>
 
-        <div class="table-custom-input">
-          <input type="number" id="customTableInput" min="1" max="99" placeholder="Örn. 14" />
-          <button type="button" class="btn-secondary" id="saveCustomTableBtn">Tamam</button>
+        <div class="receipt__items" id="receiptItemsList">
+          <!-- Dynamically populated receipt list -->
         </div>
+
+        <div class="receipt__total">
+          <span>Toplam Ödenek:</span>
+          <strong id="receiptTotalVal">0 ₺</strong>
+        </div>
+
+        <button type="button" class="btn-primary" id="closeReceiptBtn">
+          Ana Menüye Dön
+        </button>
       </div>
     </div>
+  </div>
 
-    <!-- Waiter / Service Call Modal -->
-    <div class="modal" id="waiterModal" hidden>
-      <div class="modal__backdrop" id="waiterBackdrop"></div>
-      <div class="modal__dialog modal__dialog--sm">
-        <button type="button" class="modal__close" id="closeWaiterModal">✕</button>
-        <div class="waiter-header">
-          <div class="waiter-header__icon">🛎️</div>
-          <h3 class="modal__title">Garson Çağır</h3>
-          <p class="modal__subtitle">Ekibimize bildirmek istediğiniz talebi seçin:</p>
-        </div>
 
-        <div class="waiter-actions">
-          <button type="button" class="waiter-option-btn" data-reason="Masaya Garson İstiyorum">
-            <span class="waiter-option-btn__icon">🙋‍♂️</span>
-            <span>Garson Çağır</span>
-          </button>
-          <button type="button" class="waiter-option-btn" data-reason="Su & Peçete İsteği">
-            <span class="waiter-option-btn__icon">💧</span>
-            <span>Su & Peçete İsteği</span>
-          </button>
-          <button type="button" class="waiter-option-btn" data-reason="Hesap / Adisyon İsteği">
-            <span class="waiter-option-btn__icon">🧾</span>
-            <span>Hesap / Adisyon Getir</span>
-          </button>
-          <button type="button" class="waiter-option-btn" data-reason="Masa Temizliği">
-            <span class="waiter-option-btn__icon">🧹</span>
-            <span>Masa Temizliği</span>
-          </button>
-        </div>
-      </div>
-    </div>
 
-    <!-- Order Receipt & Confirmation Modal -->
-    <div class="modal" id="receiptModal" hidden>
-      <div class="modal__backdrop"></div>
-      <div class="modal__dialog modal__dialog--receipt">
-        <div class="receipt">
-          <div class="receipt__badge">✓</div>
-          <h3 class="receipt__title">Siparişiniz Alındı</h3>
-          <p class="receipt__subtitle">Mutfak ekibimiz siparişinizi hazırlamaya başladı.</p>
+  <!-- Main JavaScript Logic -->
+  <script src="script.js"></script>
+</body>
 
-          <div class="receipt__meta">
-            <div class="receipt__row">
-              <span>Sipariş No:</span>
-              <strong id="receiptId">#ord_12345</strong>
-            </div>
-            <div class="receipt__row">
-              <span>Masa:</span>
-              <strong id="receiptTable">Masa 04</strong>
-            </div>
-            <div class="receipt__row">
-              <span>Tahmini Süre:</span>
-              <strong class="receipt__time">~8 - 12 Dakika</strong>
-            </div>
-            <div class="receipt__row">
-              <span>Durum:</span>
-              <span class="receipt__status-tag">Mutfakta Hazırlanıyor ⏳</span>
-            </div>
-          </div>
-
-          <div class="receipt__items" id="receiptItemsList">
-            <!-- Dynamically populated receipt list -->
-          </div>
-
-          <div class="receipt__total">
-            <span>Toplam Ödenek:</span>
-            <strong id="receiptTotalVal">0 ₺</strong>
-          </div>
-
-          <button type="button" class="btn-primary" id="closeReceiptBtn">
-            Ana Menüye Dön
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Toast Notification Overlay -->
-    <div class="toast" id="toast" hidden role="status">
-      <span class="toast__icon" id="toastIcon">✨</span>
-      <span class="toast__msg" id="toastMsg">Ürün eklendi</span>
-    </div>
-
-    <!-- Main JavaScript Logic -->
-    <script src="script.js"></script>
-  </body>
 </html>

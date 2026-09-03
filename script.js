@@ -773,9 +773,8 @@ submitOrderBtn.addEventListener("click", async () => {
     const orderData = await res.json();
     state.activeOrder = orderData;
 
-    // Show Confirmation Receipt & Toast Notification (5 seconds overlay)
+    // Show Confirmation Receipt
     showReceiptModal(orderData);
-    showToast("Siparişiniz başarıyla alındı ve mutfağa iletildi!", "✨", 5000);
 
     // Clear Cart State
     state.cart.clear();
@@ -897,18 +896,7 @@ waiterModal.querySelectorAll(".waiter-option-btn").forEach((btn) => {
   });
 });
 
-// 15. Helper Utilities & Toast
-function showToast(message, icon = "✨", duration = 5000) {
-  toastMsg.textContent = message;
-  toastIcon.textContent = icon;
-  toast.hidden = false;
-  
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
-    toast.hidden = true;
-  }, duration);
-}
-
+// 15. Helper Utilities
 function escapeHtml(str) {
   return String(str)
     .replace(/&/g, "&amp;")
