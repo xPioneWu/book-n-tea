@@ -3,46 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Book n Tea — Kafe Paneli</title>
+    <meta name="description" content="Book & Tea House — Canlı Mutfak & Kafe Personel Paneli" />
+    <title>Book & Tea House — Kafe Personel Paneli</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
     <link rel="stylesheet" href="staff.css" />
   </head>
   <body>
     <div class="staff">
       <header class="staff-header">
-        <div>
-          <p class="staff-header__eyebrow">Book n Tea</p>
-          <h1 class="staff-header__title">Siparişler</h1>
+        <div class="staff-header__brand">
+          <div class="staff-header__crest">❧</div>
+          <div>
+            <p class="staff-header__eyebrow">Book & Tea House</p>
+            <h1 class="staff-header__title">Mutfak & Adisyon Paneli</h1>
+          </div>
         </div>
+
         <div class="staff-header__meta">
-          <a class="staff-header__qr-link" href="qr.html">QR Kodları</a>
-          <span class="pulse" id="liveDot" aria-hidden="true"></span>
-          <span id="orderCount">0 aktif</span>
+          <a class="staff-header__qr-link" href="qr.html">
+            <span>📷 Masa QR Kodları</span>
+          </a>
+          <div class="live-status">
+            <span class="pulse" id="liveDot" aria-hidden="true"></span>
+            <span id="orderCount">0 aktif sipariş</span>
+          </div>
         </div>
       </header>
 
-      <button class="sound-toggle" id="soundToggle" type="button">
-        🔈 Sesi Etkinleştir
-      </button>
+      <div class="staff-controls">
+        <button class="sound-toggle" id="soundToggle" type="button">
+          <span>🔔 Sesli Bildirimleri Etkinleştir</span>
+        </button>
 
-      <div class="filters" role="tablist" aria-label="Durum filtresi">
-        <button class="filter is-active" data-filter="all" type="button">
-          Tümü
-        </button>
-        <button class="filter" data-filter="new" type="button">Yeni</button>
-        <button class="filter" data-filter="preparing" type="button">
-          Hazırlanıyor
-        </button>
-        <button class="filter" data-filter="ready" type="button">Hazır</button>
+        <div class="filters" role="tablist" aria-label="Durum filtresi">
+          <button class="filter is-active" data-filter="all" type="button">
+            <span>Tümü</span>
+          </button>
+          <button class="filter filter--new" data-filter="new" type="button">
+            <span>✨ Yeni</span>
+          </button>
+          <button class="filter filter--prep" data-filter="preparing" type="button">
+            <span>⏳ Hazırlanıyor</span>
+          </button>
+          <button class="filter filter--ready" data-filter="ready" type="button">
+            <span>✓ Hazır</span>
+          </button>
+        </div>
       </div>
 
       <main class="board" id="board">
-        <p class="empty" id="emptyState">Henüz sipariş yok.</p>
+        <div class="empty" id="emptyState">
+          <div class="empty__icon">☕</div>
+          <p class="empty__title">Henüz Aktif Sipariş Bulunmuyor</p>
+          <p class="empty__desc">Masalardan yeni bir sipariş geldiğinde burada anında görünecektir.</p>
+        </div>
       </main>
     </div>
 
