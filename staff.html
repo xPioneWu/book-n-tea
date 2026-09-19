@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Book & Tea House — Canlı Mutfak & Kafe Personel Paneli" />
-    <title>Book & Tea House — Kafe Personel Paneli</title>
+    <meta name="description" content="web-sitesi-ornek-sablon — Canlı Mutfak & Kafe Personel Paneli" />
+    <title>web-sitesi-ornek-sablon — Personel Paneli</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,7 +18,7 @@
         <div class="staff-header__brand">
           <div class="staff-header__crest">❧</div>
           <div>
-            <p class="staff-header__eyebrow">Book & Tea House</p>
+            <p class="staff-header__eyebrow">web-sitesi-ornek-sablon</p>
             <h1 class="staff-header__title">Mutfak & Adisyon Paneli</h1>
           </div>
         </div>
@@ -65,6 +65,80 @@
           <p class="empty__desc">Masalardan yeni bir sipariş geldiğinde burada anında görünecektir.</p>
         </div>
       </main>
+    </div>
+
+    <!-- Ürün Değişimi Modalı -->
+    <div class="staff-modal" id="exchangeModal" hidden aria-modal="true" role="dialog" aria-labelledby="exchangeModalTitle">
+      <div class="staff-modal__backdrop" id="exchangeModalBackdrop"></div>
+      <div class="staff-modal__box staff-modal__box--wide">
+        <div class="staff-modal__header">
+          <div>
+            <span class="staff-modal__badge">Ürün Değişimi</span>
+            <h2 class="staff-modal__title" id="exchangeModalTitle">Ürün Değiştir</h2>
+            <p class="staff-modal__sub" id="exchangeModalSub">Masa 04 • Değiştirilecek Ürün: Latte (120 ₺)</p>
+          </div>
+          <button type="button" class="staff-modal__close" id="exchangeModalClose">✕</button>
+        </div>
+
+        <div class="exchange-search-bar">
+          <input type="text" id="exchangeSearchInput" placeholder="Değiştirilecek yeni ürünü arayın..." />
+        </div>
+
+        <div class="exchange-categories" id="exchangeCategories">
+          <!-- Kategori hapları -->
+        </div>
+
+        <div class="exchange-product-list" id="exchangeProductList">
+          <!-- Menü ürünleri listesi -->
+        </div>
+
+        <div class="exchange-prep-toggle">
+          <label class="prep-checkbox-label">
+            <input type="checkbox" id="exchangeSetPrepCheckbox" checked />
+            <span>Mutfak yeni ürünü hazırlasın (Durumu 'Hazırlanıyor' yap)</span>
+          </label>
+        </div>
+
+        <div class="staff-modal__actions">
+          <button type="button" class="staff-modal__btn staff-modal__btn--cancel" id="exchangeModalCancel">Vazgeç</button>
+          <button type="button" class="staff-modal__btn staff-modal__btn--confirm" id="exchangeModalConfirm" disabled>Değişimi Tamamla</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ürün İptal / İade Onay Modalı -->
+    <div class="staff-modal" id="cancelItemModal" hidden aria-modal="true" role="dialog" aria-labelledby="cancelItemModalTitle">
+      <div class="staff-modal__backdrop" id="cancelItemModalBackdrop"></div>
+      <div class="staff-modal__box">
+        <div class="staff-modal__icon">❌</div>
+        <h2 class="staff-modal__title" id="cancelItemModalTitle">Ürün İptal / İade</h2>
+        <p class="staff-modal__desc" id="cancelItemModalDesc">Bu ürünü siparişten çıkarmak veya iade etmek istediğinize emin misiniz?</p>
+        <div class="cancel-qty-choice" id="cancelQtyChoice" hidden>
+          <p class="cancel-qty-label">Kaç adet iptal edilecek?</p>
+          <div class="cancel-qty-btns">
+            <button type="button" class="btn-subtle is-active" id="cancelOneQtyBtn">1 Adet İptal Et</button>
+            <button type="button" class="btn-subtle" id="cancelAllQtyBtn">Tümünü İptal Et</button>
+          </div>
+        </div>
+        <div class="staff-modal__actions">
+          <button type="button" class="staff-modal__btn staff-modal__btn--cancel" id="cancelItemModalCancel">Vazgeç</button>
+          <button type="button" class="staff-modal__btn staff-modal__btn--danger" id="cancelItemModalConfirm">✓ İptali Onayla</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tüm Siparişi İptal Etme Modalı -->
+    <div class="staff-modal" id="cancelOrderModal" hidden aria-modal="true" role="dialog" aria-labelledby="cancelOrderModalTitle">
+      <div class="staff-modal__backdrop" id="cancelOrderModalBackdrop"></div>
+      <div class="staff-modal__box">
+        <div class="staff-modal__icon">⚠️</div>
+        <h2 class="staff-modal__title" id="cancelOrderModalTitle">Masayı İptal Et</h2>
+        <p class="staff-modal__desc" id="cancelOrderModalDesc">Masa siparişi tamamen iptal edilecek. Onaylıyor musunuz?</p>
+        <div class="staff-modal__actions">
+          <button type="button" class="staff-modal__btn staff-modal__btn--cancel" id="cancelOrderModalCancel">Vazgeç</button>
+          <button type="button" class="staff-modal__btn staff-modal__btn--danger" id="cancelOrderModalConfirm">✓ Siparişi İptal Et</button>
+        </div>
+      </div>
     </div>
 
     <!-- Ödeme Onayı Modalı -->

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BOOK & TEA HOUSE — Menu & Order Application JavaScript
+   web-sitesi-ornek-sablon — Menu & Order Application JavaScript
    ========================================================================== */
 
 // 1. Comprehensive Menu Dataset
@@ -69,10 +69,10 @@ const MENU_DATA = [
   // --- Kahve Sanatı ---
   {
     id: "coff_1",
-    name: "Kütüphane Özel Latte",
+    name: "Özel Harman Latte",
     category: "coffee",
     price: 120,
-    desc: "Çift shot nitelikli Kolombiya espresso, yulaf sütlü kadifemsi doku ve hafif karamel lezzeti.",
+    desc: "Çift shot nitelikli Kolombiya espresso, kadifemsi doku ve hafif karamel lezzeti.",
     image: "assets/latte.png",
     bestseller: true,
     tags: ["hot"],
@@ -209,10 +209,10 @@ const MENU_DATA = [
   // --- Kitap & Merch ---
   {
     id: "book_1",
-    name: "Book & Tea Seramik Fincan",
+    name: "Özel Tasarım Seramik Fincan",
     category: "books",
     price: 250,
-    desc: "Özel tasarım el yapımı toprak mat seramik fincan. Logolu özel kutusunda.",
+    desc: "Özel tasarım el yapımı toprak mat seramik fincan. Özel kutusunda.",
     image: "assets/hero.png",
     bestseller: false,
     tags: [],
@@ -221,10 +221,10 @@ const MENU_DATA = [
   },
   {
     id: "book_2",
-    name: "Deri Kitap Ayracı & Not Defteri",
+    name: "Deri Ayraç & Not Defteri",
     category: "books",
     price: 180,
-    desc: "Hakiki deri kitap ayracı ve noktalı kütüphane not defteri seti.",
+    desc: "Hakiki deri ayraç ve noktalı not defteri seti.",
     image: "assets/hero.png",
     bestseller: false,
     tags: [],
@@ -260,10 +260,10 @@ function mapAdminProducts(products, productOptionMappings) {
 const DEFAULT_CATEGORIES = [
   { id: "tea", name: "Özel Çaylar", icon: "🍃" },
   { id: "coffee", name: "Kahve Sanatı", icon: "☕" },
-  { id: "bakery", name: "Kütüphane Fırını", icon: "🥐" },
+  { id: "bakery", name: "Fırın & Unlu Mamul", icon: "🥐" },
   { id: "dessert", name: "Tatlılar", icon: "🍰" },
   { id: "sandwich", name: "Sandviç & Tost", icon: "🥪" },
-  { id: "books", name: "Kitap & Merch", icon: "📚" }
+  { id: "books", name: "Hediyelik & Merch", icon: "🎁" }
 ];
 
 function getInitialAdminData() {
@@ -950,6 +950,7 @@ submitOrderBtn.addEventListener("click", async () => {
     renderCartUI();
     renderProducts();
     closeCartDrawer();
+    fetchActiveTableOrder();
   } catch (err) {
     showCartError(err.message || "Bağlantı hatası. Sunucunun çalıştığından emin olun.");
   } finally {
@@ -969,7 +970,7 @@ function showReceiptModal(order) {
   receiptTable.textContent = `Masa ${order.table || state.tableNumber}`;
 
   let totalSum = 0;
-  receiptItemsList.innerHTML = order.items
+  receiptItemsList.innerHTML = (order.items || [])
     .map((item) => {
       const lineTotal = item.price * item.qty;
       totalSum += lineTotal;
@@ -1013,6 +1014,7 @@ tableGridOptions.addEventListener("click", (e) => {
   updateTableDisplay();
   renderTableGridOptions();
   tableModal.hidden = true;
+  fetchActiveTableOrder();
 });
 
 saveCustomTableBtn.addEventListener("click", () => {
@@ -1023,6 +1025,7 @@ saveCustomTableBtn.addEventListener("click", () => {
     renderTableGridOptions();
     tableModal.hidden = true;
     customTableInput.value = "";
+    fetchActiveTableOrder();
   }
 });
 
@@ -1058,13 +1061,276 @@ waiterModal.querySelectorAll(".waiter-option-btn").forEach((btn) => {
           note: "Garson çağrı bildirimi",
         }),
       });
+      fetchActiveTableOrder();
     } catch (e) {
       // Ignore background notification errors
     }
   });
 });
 
-// 15. Helper Utilities
+// 15. Active Table Order Tracking & Change / Cancellation Requests
+const activeOrderBanner = document.getElementById("activeOrderBanner");
+const bannerTableStatus = document.getElementById("bannerTableStatus");
+const bannerItemsCount = document.getElementById("bannerItemsCount");
+const openActiveOrderModalBtn = document.getElementById("openActiveOrderModalBtn");
+const viewActiveOrderBtn = document.getElementById("viewActiveOrderBtn");
+const viewActiveOrderBtnText = document.getElementById("viewActiveOrderBtnText");
+const activeOrderModal = document.getElementById("activeOrderModal");
+const activeOrderBackdrop = document.getElementById("activeOrderBackdrop");
+const closeActiveOrderModal = document.getElementById("closeActiveOrderModal");
+const trackStatusPill = document.getElementById("trackStatusPill");
+const trackTableBadge = document.getElementById("trackTableBadge");
+const trackItemsList = document.getElementById("trackItemsList");
+const trackOrderTotalVal = document.getElementById("trackOrderTotalVal");
+const trackRequestPanel = document.getElementById("trackRequestPanel");
+const requestPanelTitle = document.getElementById("requestPanelTitle");
+const closeRequestPanel = document.getElementById("closeRequestPanel");
+const requestTargetItemName = document.getElementById("requestTargetItemName");
+const exchangeChoiceBlock = document.getElementById("exchangeChoiceBlock");
+const exchangeProductSelect = document.getElementById("exchangeProductSelect");
+const requestCommentInput = document.getElementById("requestCommentInput");
+const submitCustomerRequestBtn = document.getElementById("submitCustomerRequestBtn");
+const trackPendingRequests = document.getElementById("trackPendingRequests");
+const openTrackFromReceiptBtn = document.getElementById("openTrackFromReceiptBtn");
+
+let selectedTrackItemIndex = null;
+let selectedTrackRequestType = "exchange"; // "exchange" | "cancel"
+
+const TRACK_STATUS_LABELS = {
+  new: "Sipariş Alındı ✨",
+  preparing: "Mutfakta Hazırlanıyor ⏳",
+  ready: "Siparişiniz Hazır ✓",
+  delivered: "Masaya Teslim Edildi 🤝",
+};
+
+async function fetchActiveTableOrder() {
+  if (!state.tableNumber) return;
+  try {
+    const res = await fetch(`/api/orders?table=${state.tableNumber}`);
+    if (!res.ok) return;
+    const list = await res.json();
+    const active = list.find((o) => o.status !== "done" && o.status !== "cancelled");
+    state.activeOrder = active || null;
+
+    if (state.activeOrder && state.activeOrder.items && state.activeOrder.items.length > 0) {
+      const itemCount = state.activeOrder.items.reduce((s, i) => s + (Number(i.qty) || 1), 0);
+      const total = state.activeOrder.items.reduce((s, i) => s + (Number(i.price) || 0) * (Number(i.qty) || 1), 0);
+      const statusText = TRACK_STATUS_LABELS[state.activeOrder.status] || state.activeOrder.status;
+
+      if (activeOrderBanner) {
+        bannerTableStatus.textContent = `Masa ${state.activeOrder.table} • ${statusText}`;
+        bannerItemsCount.textContent = `${itemCount} lezzet • ${total} ₺`;
+        activeOrderBanner.hidden = false;
+      }
+      if (viewActiveOrderBtn) {
+        viewActiveOrderBtnText.textContent = `Siparişim (${statusText})`;
+        viewActiveOrderBtn.hidden = false;
+      }
+
+      if (activeOrderModal && !activeOrderModal.hidden) {
+        renderActiveOrderModal();
+      }
+    } else {
+      if (activeOrderBanner) activeOrderBanner.hidden = true;
+      if (viewActiveOrderBtn) viewActiveOrderBtn.hidden = true;
+      if (activeOrderModal && !activeOrderModal.hidden) {
+        activeOrderModal.hidden = true;
+      }
+    }
+  } catch (e) {}
+}
+
+function openActiveOrderModal() {
+  if (!state.activeOrder) {
+    alert("Bu masaya ait aktif bir sipariş bulunmuyor.");
+    return;
+  }
+  if (trackRequestPanel) trackRequestPanel.hidden = true;
+  selectedTrackItemIndex = null;
+  renderActiveOrderModal();
+  activeOrderModal.hidden = false;
+}
+
+function closeActiveOrderModalHandler() {
+  activeOrderModal.hidden = true;
+  if (trackRequestPanel) trackRequestPanel.hidden = true;
+  selectedTrackItemIndex = null;
+}
+
+function renderActiveOrderModal() {
+  if (!state.activeOrder) return;
+
+  const o = state.activeOrder;
+  const statusText = TRACK_STATUS_LABELS[o.status] || o.status;
+  if (trackStatusPill) trackStatusPill.textContent = statusText;
+  if (trackTableBadge) trackTableBadge.textContent = `Masa ${o.table}`;
+
+  let totalSum = 0;
+  if (trackItemsList) {
+    trackItemsList.innerHTML = (o.items || [])
+      .map((item, idx) => {
+        const lineTotal = (Number(item.price) || 0) * (Number(item.qty) || 1);
+        totalSum += lineTotal;
+        return `
+        <li class="track-item-line">
+          <div class="track-item-info">
+            <div>
+              <div class="track-item-name">${item.qty}x ${escapeHtml(item.name)}</div>
+              ${item.exchangedFrom ? `<div style="font-size:0.72rem; color:var(--cream-dim);">(${escapeHtml(item.exchangedFrom)} yerine)</div>` : ""}
+            </div>
+            <strong class="track-item-price">${lineTotal} ₺</strong>
+          </div>
+          <div class="track-item-actions">
+            <button type="button" class="btn-track-action btn-track-exchange" data-index="${idx}">
+              🔄 Değiştir
+            </button>
+            <button type="button" class="btn-track-action btn-track-cancel" data-index="${idx}">
+              ❌ İade / İptal İste
+            </button>
+          </div>
+        </li>`;
+      })
+      .join("");
+  }
+
+  if (trackOrderTotalVal) trackOrderTotalVal.textContent = `${totalSum} ₺`;
+
+  // Aktif müşteri talepleri listesi
+  const pending = (o.customerRequests || []).filter((r) => !r.resolved);
+  if (trackPendingRequests) {
+    if (pending.length) {
+      trackPendingRequests.hidden = false;
+      trackPendingRequests.innerHTML = pending
+        .map(
+          (r) => `
+        <div class="track-pending-badge">
+          <span>⏳</span>
+          <span><strong>${escapeHtml(r.itemName)}</strong> için ${r.type === "cancel" ? "İptal/İade" : "Değişim"} talebiniz personele iletildi ${r.targetItem ? `(Yerine: ${escapeHtml(r.targetItem)})` : ""}${r.note ? ` [Not: ${escapeHtml(r.note)}]` : ""}</span>
+        </div>`
+        )
+        .join("");
+    } else {
+      trackPendingRequests.hidden = true;
+    }
+  }
+}
+
+// Track Modal Item Actions Click
+if (trackItemsList) {
+  trackItemsList.addEventListener("click", (e) => {
+    const exchangeBtn = e.target.closest(".btn-track-exchange");
+    if (exchangeBtn) {
+      const idx = Number(exchangeBtn.dataset.index);
+      startItemChangeRequest(idx, "exchange");
+      return;
+    }
+
+    const cancelBtn = e.target.closest(".btn-track-cancel");
+    if (cancelBtn) {
+      const idx = Number(cancelBtn.dataset.index);
+      startItemChangeRequest(idx, "cancel");
+      return;
+    }
+  });
+}
+
+function startItemChangeRequest(itemIndex, type) {
+  if (!state.activeOrder || !state.activeOrder.items[itemIndex]) return;
+
+  selectedTrackItemIndex = itemIndex;
+  selectedTrackRequestType = type;
+  const item = state.activeOrder.items[itemIndex];
+
+  if (requestTargetItemName) {
+    requestTargetItemName.textContent = `Seçilen Lezzet: ${item.name} (${item.price} ₺) ×${item.qty}`;
+  }
+  if (requestCommentInput) requestCommentInput.value = "";
+
+  if (type === "exchange") {
+    if (requestPanelTitle) requestPanelTitle.textContent = "🔄 Ürün Değişimi İste";
+    if (exchangeChoiceBlock) exchangeChoiceBlock.hidden = false;
+
+    // Menüdeki alternatif ürünleri doldur
+    const available = state.products.filter((p) => p.name !== item.name && p.active !== false);
+    if (exchangeProductSelect) {
+      exchangeProductSelect.innerHTML = available
+        .map((p) => `<option value="${escapeHtml(p.name)}">${escapeHtml(p.name)} (${p.price} ₺)</option>`)
+        .join("");
+    }
+    if (submitCustomerRequestBtn) submitCustomerRequestBtn.textContent = "Değişim Talebini Garsona İlet";
+  } else {
+    if (requestPanelTitle) requestPanelTitle.textContent = "❌ Ürün İptal / İade İste";
+    if (exchangeChoiceBlock) exchangeChoiceBlock.hidden = true;
+    if (submitCustomerRequestBtn) submitCustomerRequestBtn.textContent = "İptal Talebini Garsona İlet";
+  }
+
+  if (trackRequestPanel) {
+    trackRequestPanel.hidden = false;
+    trackRequestPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
+if (closeRequestPanel) {
+  closeRequestPanel.addEventListener("click", () => {
+    if (trackRequestPanel) trackRequestPanel.hidden = true;
+    selectedTrackItemIndex = null;
+  });
+}
+
+if (submitCustomerRequestBtn) {
+  submitCustomerRequestBtn.addEventListener("click", async () => {
+    if (!state.activeOrder || selectedTrackItemIndex === null) return;
+
+    const item = state.activeOrder.items[selectedTrackItemIndex];
+    const targetItem = selectedTrackRequestType === "exchange" && exchangeProductSelect ? exchangeProductSelect.value : "";
+    const note = requestCommentInput ? requestCommentInput.value.trim() : "";
+
+    submitCustomerRequestBtn.disabled = true;
+    submitCustomerRequestBtn.textContent = "İletiliyor...";
+
+    try {
+      const res = await fetch(`/api/orders/${state.activeOrder.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "customer-request",
+          type: selectedTrackRequestType,
+          itemIndex: selectedTrackItemIndex,
+          itemName: item.name,
+          targetItem,
+          note,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Talep gönderilemedi.");
+      const updated = await res.json();
+      state.activeOrder = updated;
+      if (trackRequestPanel) trackRequestPanel.hidden = true;
+      selectedTrackItemIndex = null;
+      renderActiveOrderModal();
+
+      alert("Talebiniz garsona ve mutfağa iletildi. Garsonumuz masanıza gelecektir.");
+    } catch (err) {
+      alert(err.message || "Bağlantı hatası oluştu.");
+    } finally {
+      submitCustomerRequestBtn.disabled = false;
+      submitCustomerRequestBtn.textContent = "Talebi Garsona İlet";
+    }
+  });
+}
+
+if (openActiveOrderModalBtn) openActiveOrderModalBtn.addEventListener("click", openActiveOrderModal);
+if (viewActiveOrderBtn) viewActiveOrderBtn.addEventListener("click", openActiveOrderModal);
+if (openTrackFromReceiptBtn) {
+  openTrackFromReceiptBtn.addEventListener("click", () => {
+    receiptModal.hidden = true;
+    openActiveOrderModal();
+  });
+}
+if (closeActiveOrderModal) closeActiveOrderModal.addEventListener("click", closeActiveOrderModalHandler);
+if (activeOrderBackdrop) activeOrderBackdrop.addEventListener("click", closeActiveOrderModalHandler);
+
+// 16. Helper Utilities
 function escapeHtml(str) {
   return String(str)
     .replace(/&/g, "&amp;")
@@ -1072,3 +1338,8 @@ function escapeHtml(str) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 }
+
+// Start active table order tracking
+fetchActiveTableOrder();
+setInterval(fetchActiveTableOrder, 3000);
+

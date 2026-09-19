@@ -1,8 +1,8 @@
 {
-  "name": "book-n-tea",
+  "name": "web-sitesi-ornek-sablon",
   "version": "1.0.0",
   "private": true,
-  "description": "Book n Tea QR menü ve sipariş sistemi",
+  "description": "web-sitesi-ornek-sablon QR menü ve sipariş sistemi",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"
